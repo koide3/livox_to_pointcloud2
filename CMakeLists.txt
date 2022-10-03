@@ -29,3 +29,13 @@ add_executable(livox_to_pointcloud2
 target_link_libraries(livox_to_pointcloud2
   ${catkin_LIBRARIES}
 )
+add_dependencies(livox_to_pointcloud2
+  ${catkin_EXPORTED_TARGETS}
+)
+
+add_executable(kinect_to_lidar
+  src/kinect_to_lidar.cpp
+)
+target_link_libraries(kinect_to_lidar
+  ${catkin_LIBRARIES}
+)
