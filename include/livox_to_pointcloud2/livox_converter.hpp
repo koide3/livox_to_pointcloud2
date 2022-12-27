@@ -2,7 +2,12 @@
 
 #ifdef ROS1
 #include <sensor_msgs/PointCloud2.h>
+#include <livox_ros_driver/CustomMsg.h>
+using PointField = sensor_msgs::PointField;
 using PointCloud2 = sensor_msgs::PointCloud2;
+using PointCloud2Ptr = sensor_msgs::PointCloud2::Ptr;
+using PointCloud2ConstPtr = sensor_msgs::PointCloud2::ConstPtr;
+using CustomMsg = livox_ros_driver::CustomMsg;
 #endif
 
 #ifdef ROS2
