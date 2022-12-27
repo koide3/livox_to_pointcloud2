@@ -1,9 +1,11 @@
 #pragma once
 
-#if 0
+#ifdef ROS1
 #include <sensor_msgs/PointCloud2.h>
 using PointCloud2 = sensor_msgs::PointCloud2;
-#else
+#endif
+
+#ifdef ROS2
 #include <sensor_msgs/msg/point_cloud2.hpp>
 #include <livox_interfaces/msg/custom_msg.hpp>
 using PointField = sensor_msgs::msg::PointField;

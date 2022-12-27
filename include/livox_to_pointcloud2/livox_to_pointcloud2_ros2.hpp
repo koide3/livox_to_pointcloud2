@@ -2,6 +2,8 @@
 
 #include <iostream>
 #include <rclcpp/rclcpp.hpp>
+
+#define ROS2
 #include <livox_to_pointcloud2/livox_converter.hpp>
 
 namespace livox_to_pointcloud2 {
