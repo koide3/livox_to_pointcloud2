@@ -1,41 +1,60 @@
-cmake_minimum_required(VERSION 3.0.2)
+cmake_minimum_required(VERSION 3.5.2)
 project(livox_to_pointcloud2)
 
-add_compile_options(-std=c++17)
-
-find_package(catkin REQUIRED COMPONENTS roscpp sensor_msgs livox_ros_driver)
-
-###################################
-## catkin specific configuration ##
-###################################
-catkin_package(
-#  INCLUDE_DIRS include
-#  LIBRARIES livox_to_pointcloud2
-#  CATKIN_DEPENDS other_catkin_pkg
-#  DEPENDS system_lib
-)
+set(CMAKE_CXX_STANDARD 20)
 
 ###########
 ## Build ##
 ###########
 
-include_directories(
-  ${catkin_INCLUDE_DIRS}
-)
+if($ENV{ROS_VERSION} EQUAL 1)
+  ###########################
+  ## catkin-related (ROS1) ##
+  ###########################
+  find_package(catkin REQUIRED COMPONENTS
+    roscpp
+    sensor_msgs
+    livox_ros_driver
+  )
+  catkin_package()
 
-add_executable(livox_to_pointcloud2
-  src/livox_to_pointcloud2.cpp
-)
-target_link_libraries(livox_to_pointcloud2
-  ${catkin_LIBRARIES}
-)
-add_dependencies(livox_to_pointcloud2
-  ${catkin_EXPORTED_TARGETS}
-)
+  add_executable(livox_to_pointcloud2
+    src/livox_to_pointcloud2_ros1.cpp
+  )
+  target_include_directories(livox_to_pointcloud2 PUBLIC
+    include
+    ${catkin_INCLUDE_DIRS}
+  )
+  target_link_libraries(livox_to_pointcloud2
+    ${catkin_LIBRARIES}
+  )
+  add_dependencies(livox_to_pointcloud2
+    ${catkin_EXPORTED_TARGETS}
+  )
+elseif($ENV{ROS_VERSION} EQUAL 2)
+  ##########################
+  ## ament-related (ROS2) ##
+  ##########################
+  find_package(ament_cmake_auto REQUIRED)
+  ament_auto_find_build_dependencies()
 
-add_executable(kinect_to_lidar
-  src/kinect_to_lidar.cpp
-)
-target_link_libraries(kinect_to_lidar
-  ${catkin_LIBRARIES}
-)
+  # Component
+  ament_auto_add_library(livox_to_pointcloud2 SHARED
+    src/livox_to_pointcloud2_ros2.cpp
+  )
+  rclcpp_components_register_nodes(livox_to_pointcloud2 "livox_to_pointcloud2::LivoxToPointCloud2")
+
+  # Node
+  ament_auto_add_executable(livox_to_pointcloud2_node
+    src/livox_to_pointcloud2_ros2_node.cpp
+  )
+  target_include_directories(livox_to_pointcloud2_node PUBLIC
+    include
+  )
+  target_link_libraries(livox_to_pointcloud2_node
+    livox_to_pointcloud2
+  )
+
+  ament_auto_package()
+endif()
+

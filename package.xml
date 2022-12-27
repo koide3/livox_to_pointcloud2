@@ -1,5 +1,6 @@
 <?xml version="1.0"?>
-<package format="2">
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
   <name>livox_to_pointcloud2</name>
   <version>0.0.0</version>
   <description>The livox_to_pointcloud2 package</description>
@@ -8,12 +9,18 @@
 
   <license>MIT</license>
 
-  <buildtool_depend>catkin</buildtool_depend>
+  <buildtool_depend condition="$ROS_VERSION == 1">catkin</buildtool_depend>
+  <buildtool_depend condition="$ROS_VERSION == 2">ament_cmake</buildtool_depend>
 
-  <depend>roscpp</depend>
+  <depend condition="$ROS_VERSION == 1">roscpp</depend>
+  <depend condition="$ROS_VERSION == 2">rclcpp</depend>
+  <depend condition="$ROS_VERSION == 2">rclcpp_components</depend>
+
   <depend>sensor_msgs</depend>
-  <depend>livox_ros_driver</depend>
+  <depend condition="$ROS_VERSION == 1">livox_ros_driver</depend>
+  <depend condition="$ROS_VERSION == 2">livox_ros2_driver</depend>
 
   <export>
+    <build_type>ament_cmake</build_type>
   </export>
 </package>
