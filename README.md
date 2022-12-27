@@ -5,7 +5,10 @@ This package provides ROS1/ROS2 interfaces to convert ```livox_interfaces::msg::
 ## Usage
 
 ```bash
-# Launch as a standard ROS2 node
+# Launch as a ROS1 node
+rosrun livox_to_pointcloud2 livox_to_pointcloud2_node
+
+# Launch as a ROS2 node
 ros2 run livox_to_pointcloud2 livox_to_pointcloud2_node
 
 # Launch as a standalone ROS2 component
