@@ -12,12 +12,18 @@ using CustomMsg = livox_ros_driver::CustomMsg;
 
 #ifdef ROS2
 #include <sensor_msgs/msg/point_cloud2.hpp>
-#include <livox_interfaces/msg/custom_msg.hpp>
 using PointField = sensor_msgs::msg::PointField;
 using PointCloud2 = sensor_msgs::msg::PointCloud2;
 using PointCloud2Ptr = sensor_msgs::msg::PointCloud2::SharedPtr;
 using PointCloud2ConstPtr = sensor_msgs::msg::PointCloud2::ConstSharedPtr;
-using CustomMsg = livox_interfaces::msg::CustomMsg;
+
+// livox_ros_driver2
+#include <livox_ros_driver2/msg/custom_msg.hpp>
+using CustomMsg = livox_ros_driver2::msg::CustomMsg;
+
+// livox_ros2_driver
+// #include <livox_interfaces/msg/custom_msg.hpp>
+// using CustomMsg = livox_interfaces::msg::CustomMsg;
 #endif
 
 namespace livox_to_pointcloud2 {
@@ -75,5 +81,4 @@ public:
 private:
   PointCloud2Ptr points_msg;
 };
-
-}
+}  // namespace livox_to_pointcloud2
