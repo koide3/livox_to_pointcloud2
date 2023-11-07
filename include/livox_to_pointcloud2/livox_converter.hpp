@@ -7,7 +7,6 @@ using PointField = sensor_msgs::PointField;
 using PointCloud2 = sensor_msgs::PointCloud2;
 using PointCloud2Ptr = sensor_msgs::PointCloud2::Ptr;
 using PointCloud2ConstPtr = sensor_msgs::PointCloud2::ConstPtr;
-using CustomMsg = livox_ros_driver::CustomMsg;
 #endif
 
 #ifdef ROS2
@@ -16,14 +15,6 @@ using PointField = sensor_msgs::msg::PointField;
 using PointCloud2 = sensor_msgs::msg::PointCloud2;
 using PointCloud2Ptr = sensor_msgs::msg::PointCloud2::SharedPtr;
 using PointCloud2ConstPtr = sensor_msgs::msg::PointCloud2::ConstSharedPtr;
-
-// livox_ros_driver2
-#include <livox_ros_driver2/msg/custom_msg.hpp>
-using CustomMsg = livox_ros_driver2::msg::CustomMsg;
-
-// livox_ros2_driver
-// #include <livox_interfaces/msg/custom_msg.hpp>
-// using CustomMsg = livox_interfaces::msg::CustomMsg;
 #endif
 
 namespace livox_to_pointcloud2 {
@@ -54,6 +45,7 @@ public:
     points_msg->is_dense = true;
   }
 
+  template <typename CustomMsg>
   PointCloud2ConstPtr convert(const CustomMsg& livox_msg) {
     points_msg->header = livox_msg.header;
     points_msg->width = livox_msg.point_num;
