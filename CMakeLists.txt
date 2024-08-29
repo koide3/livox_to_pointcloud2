@@ -43,6 +43,14 @@ elseif($ENV{ROS_VERSION} EQUAL 2)
   find_package(ament_cmake_auto REQUIRED)
   ament_auto_find_build_dependencies()
 
+  if(livox_ros_driver2_FOUND)
+    message(STATUS "Found livox_ros_driver2")
+    add_compile_definitions(LIVOX_ROS_DRIVER2)
+  elseif(livox_ros2_driver_FOUND)
+    message(STATUS "Found livox_ros2_driver")
+    add_compile_definitions(LIVOX_ROS2_DRIVER)
+  endif()
+
   # Component
   ament_auto_add_library(livox_to_pointcloud2 SHARED
     src/livox_to_pointcloud2_ros2.cpp
