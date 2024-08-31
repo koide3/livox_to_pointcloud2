@@ -2,9 +2,6 @@
 
 #include <rclcpp_components/register_node_macro.hpp>
 
-#define LIVOX_ROS2_DRIVER
-#define LIVOX_ROS_DRIVER2
-
 #ifdef LIVOX_ROS2_DRIVER
 #include <livox_interfaces/msg/custom_msg.hpp>
 #endif

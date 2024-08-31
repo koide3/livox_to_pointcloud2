@@ -1,8 +1,6 @@
 cmake_minimum_required(VERSION 3.5.2)
 project(livox_to_pointcloud2)
 
-set(CMAKE_CXX_STANDARD 20)
-
 if(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
   set(CMAKE_BUILD_TYPE "RelWithDebInfo" CACHE STRING "Choose the type of build." FORCE)
   set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS "Debug" "Release" "MinSizeRel" "RelWithDebInfo")
@@ -42,6 +40,14 @@ elseif($ENV{ROS_VERSION} EQUAL 2)
   ##########################
   find_package(ament_cmake_auto REQUIRED)
   ament_auto_find_build_dependencies()
+
+  if(livox_ros_driver2_FOUND)
+    message(STATUS "Found livox_ros_driver2")
+    add_compile_definitions(LIVOX_ROS_DRIVER2)
+  elseif(livox_ros2_driver_FOUND)
+    message(STATUS "Found livox_ros2_driver")
+    add_compile_definitions(LIVOX_ROS2_DRIVER)
+  endif()
 
   # Component
   ament_auto_add_library(livox_to_pointcloud2 SHARED
